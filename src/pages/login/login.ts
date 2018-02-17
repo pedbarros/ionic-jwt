@@ -24,7 +24,13 @@ export class LoginPage {
       if (dados.login === "true"){
           this.navCtrl.push(HomePage)
           this.storage.set('token', dados.access_token)
-          // console.log("Pode entrar, patrão.")
+
+
+          /*console.log(
+              jwtHelper.decodeToken(dados.access_token),
+              jwtHelper.getTokenExpirationDate(dados.access_token),
+              jwtHelper.isTokenExpired(dados.access_token)
+          );*/
       }else{
           // console.log("Fica aí!")
           this.presentToast(dados.message)

@@ -7,7 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { LoginPage } from "../pages/login/login";
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule} from "@angular/common/http";
 import { IonicStorageModule } from '@ionic/storage';
 import {HomePageModule} from "../pages/home/home.module";
 

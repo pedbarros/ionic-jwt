@@ -1,22 +1,33 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage} from 'ionic-angular';
 import {Storage} from "@ionic/storage";
+import {JwtHelper} from "angular2-jwt";
+import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
 
 @IonicPage()
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html',
+    selector: 'page-home',
+    templateUrl: 'home.html',
 })
 export class HomePage {
+    constructor(private storage: Storage,
+                private authService: AuthServiceProvider) {
+    }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
-    this.storage.get('token').then((val) => {
-      console.log('TOKEN: ', val);
-    });
-  }
+    ionViewDidLoad() {
 
-  ionViewDidLoad() {
+    }
 
-  }
+    logout() {
+        this.authService.logout()
+    }
+
+    validarToken() {
+        this.storage.get('token').then(token => {
+            let jwtHelper = new JwtHelper();
+            console.log(token)
+            console.log(jwtHelper.decodeToken(token))
+        })
+    }
 
 }

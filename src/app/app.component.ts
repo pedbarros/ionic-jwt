@@ -19,6 +19,7 @@ export class MyApp {
 
             let jwtHelper = new JwtHelper();
             this.storage.get('token').then(token => {
+                // console.log(token)
                 if (token) {
                     if (jwtHelper.isTokenExpired(token)) {
                         this.rootPage = LoginPage

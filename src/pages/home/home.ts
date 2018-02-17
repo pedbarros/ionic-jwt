@@ -10,6 +10,7 @@ import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
     templateUrl: 'home.html',
 })
 export class HomePage {
+    name: string
     constructor(private storage: Storage,
                 private authService: AuthServiceProvider) {
     }
@@ -18,16 +19,17 @@ export class HomePage {
 
     }
 
+    ionViewDidEnter() {
+        this.storage.get('token').then(token => {
+            let jwtHelper = new JwtHelper();
+            console.log(jwtHelper.decodeToken(token).data.name)
+            this.name = jwtHelper.decodeToken(token).data.name
+        })
+    }
+
     logout() {
         this.authService.logout()
     }
 
-    validarToken() {
-        this.storage.get('token').then(token => {
-            let jwtHelper = new JwtHelper();
-            console.log(token)
-            console.log(jwtHelper.decodeToken(token))
-        })
-    }
 
 }

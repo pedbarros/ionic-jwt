@@ -21,7 +21,7 @@ export class AuthServiceProvider {
             pass: usuario.pass
         });
 
-        return this.http.post<any>("http://localhost/servidor-jwt/web/index.php/auth", data, {
+        return this.http.post<any>("http://peledson.esy.es/servidor-jwt/web/index.php/auth", data, {
             //headers: new HttpHeaders().set('Authorization', 'my-auth-token'),
             //params: new HttpParams().set('id', '3'),
         }).pipe(

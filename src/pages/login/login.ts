@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavController, ToastController} from 'ionic-angular';
+import {AlertController, NavController } from 'ionic-angular';
 import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
 import {Storage} from "@ionic/storage";
 import {Usuario} from "../model/usuario";
@@ -13,43 +13,36 @@ export class LoginPage {
   usuario: Usuario = new Usuario()
 
   constructor(private navCtrl: NavController, private authService: AuthServiceProvider,
-              private storage: Storage, private toastCtrl: ToastController) {
+              private storage: Storage, private alertaCtrl: AlertController) {
       this.usuario.user = "pedro"
       this.usuario.pass = "123"
   }
 
   login(){
     this.authService.login(this.usuario).subscribe( dados => {
-      console.log(dados)
+        this.presentAlerta(JSON.stringify(dados))
       if (dados.login === "true"){
           this.navCtrl.push(HomePage)
           this.storage.set('token', dados.access_token)
-
-
-          /*console.log(
-              jwtHelper.decodeToken(dados.access_token),
-              jwtHelper.getTokenExpirationDate(dados.access_token),
-              jwtHelper.isTokenExpired(dados.access_token)
-          );*/
       }else{
           // console.log("Fica aí!")
-          this.presentToast(dados.message)
+          this.presentAlerta(dados.message)
       }
     })
   }
 
-    presentToast(msg: string) {
-        let toast = this.toastCtrl.create({
+    presentAlerta(msg: string) {
+        let alerta = this.alertaCtrl.create({
             message: msg,
             duration: 3000,
             position: 'bottom'
         });
 
-        toast.onDidDismiss(() => {
-            console.log('Dismissed toast');
+        alerta.onDidDismiss(() => {
+            console.log('Dismissed alerta');
         });
 
-        toast.present();
+        alerta.present();
     }
 
 }
